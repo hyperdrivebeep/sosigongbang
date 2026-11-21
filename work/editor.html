@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data: blob:; connect-src 'none'; worker-src 'none'; base-uri 'none'; form-action 'none'">
+<title>소식공방 · 학원 카드뉴스</title><style>/*CSS*/</style></head>
+<body>
+<header><div class="brand"><span class="symbol" aria-hidden="true"><i></i><i></i><i></i></span><strong>소식공방</strong></div><span class="descriptor">학원 카드뉴스 편집기</span><div class="tools"><button id="accountBtn" hidden>ChatGPT 로그인</button><button id="new">새로 만들기</button><button id="open">열기</button><button id="save">편집본 저장</button><button id="export">인스타용 저장 ↓</button><button id="instagram" class="primary">인스타에 게시</button></div></header>
+<main><section class="heading"><div><div class="caption" id="origin">편집 중인 카드뉴스</div><h1 id="worktitle"></h1></div><span id="status" role="status"></span></section>
+<div class="studio">
+<aside class="pages"><div class="section-title"><h2>카드 순서</h2><b id="count"></b></div><div class="thumbs" id="pages"></div><button class="add" id="add">＋ 카드 추가</button></aside>
+<section class="stage"><div class="stage-head"><h2>미리보기</h2><span>인스타그램 · 4:5</span></div><div class="art"><canvas width="1080" height="1350" id="card" aria-label="현재 카드 미리보기"></canvas></div><nav><button id="prev" aria-label="이전 카드">←</button><strong id="pageNum"></strong><button id="next" aria-label="다음 카드">→</button></nav></section>
+<section class="inspector"><div class="tabs"><button id="tabText" aria-pressed="true">문구 편집</button><button id="tabDesign" aria-pressed="false">학원 디자인</button></div>
+<div id="textPanel"><div class="section-title"><h2 id="role"></h2><button id="undo" class="quiet">↶ 되돌리기</button></div>
+<label for="title">제목</label><textarea id="title" rows="2" maxlength="120"></textarea><label for="body">본문</label><textarea id="body" rows="4" maxlength="600"></textarea>
+<p class="tip" id="fit" role="status"></p>
+<div class="subgroup"><div class="section-title"><label>이 장의 사진</label><button id="clearPhoto" class="quiet" hidden>제거</button></div><button id="photo" class="wide">＋ 사진 선택</button><small>복사한 사진은 Ctrl + V로 넣을 수 있어요.</small></div>
+<div class="row ops"><button id="up">앞으로</button><button id="down">뒤로</button><button id="del">장 삭제</button></div><details id="originalNote"><summary>처음 적은 메모 보기</summary><p id="originalText"></p></details></div>
+<div id="designPanel" hidden><h2>모든 카드에 적용</h2><label for="brandName">학원 이름</label><input id="brandName" maxlength="32" placeholder="예: 다온수학학원"><label>학원 색</label><div id="swatches"></div><label class="picker" for="color">원하는 색 직접 선택<input type="color" id="color"></label>
+<div class="subgroup"><div class="section-title"><label>학원 로고</label><button class="quiet" id="clearLogo" hidden>제거</button></div><button class="wide" id="logo">＋ 로고 선택</button><small>PNG 또는 JPG · 가로세로 비율을 유지해요.</small></div><button class="wide" id="remember">다음에도 이 디자인 사용</button></div></section>
+</div></main>
+<dialog id="accountBox"><form method="dialog" class="dialogtop"><h2>ChatGPT 연결</h2><button>닫기</button></form><p id="accountState"></p><div class="row"><button class="primary" id="connect">ChatGPT로 로그인</button><button id="disconnect" hidden>로그아웃</button><a href="https://chatgpt.com/settings/usage" target="_blank" rel="noreferrer">사용량 관리</a></div><p id="accountNotice" role="status"></p></dialog><dialog id="composer"><form method="dialog" class="dialogtop"><h2>새 카드뉴스</h2><button aria-label="닫기">닫기</button></form><label for="memo">어떤 이야기를 전하고 싶으세요?</label><textarea id="memo" rows="5" maxlength="12000" placeholder="예: 수학 시험 전날, 새 문제보다 틀린 문제를 다시 보자는 이야기를 전하고 싶어요."></textarea>
+<p id="newHelp">주제만 있다면 요청을 복사해 ChatGPT에 붙여넣으세요. 완성된 원고는 줄이나 문단 단위로 바로 배치할 수 있어요.</p>
+<div class="row"><button id="localDraft" class="primary" hidden>ChatGPT로 초안 만들기</button><button id="copyAsk" class="primary">ChatGPT 요청 복사</button><button id="arrange">내 글 그대로 배치</button></div>
+<details><summary>ChatGPT가 준 초안 붙여넣기</summary><textarea id="incoming" rows="4" aria-label="받은 초안"></textarea><button id="importText">초안 열기</button></details><div id="dialogNotice" role="status"></div></dialog>
+<dialog id="finished"><form method="dialog" class="dialogtop"><h2>인스타용 카드가 준비됐어요</h2><button>닫기</button></form><p id="doneInfo"></p><ol><li>ZIP 파일의 압축을 풀거나 아래에서 사진을 폴더에 바로 저장하세요.</li><li>인스타그램 새 게시물에서 여러 장 선택을 누르고 01번부터 골라 주세요.</li><li>함께 저장한 ‘게시글.txt’의 문구를 붙여넣으세요.</li></ol><div class="row"><button id="folder" class="primary">사진 폴더에 바로 저장</button><button id="copyCaption">게시글 문구 복사</button></div><p id="folderStatus" role="status"></p></dialog>
+<dialog id="igBox"><form method="dialog" class="dialogtop"><h2>인스타그램 게시</h2><button>닫기</button></form>
+<p id="igState" role="status"></p><div id="igPreview" aria-label="게시 순서" style="display:flex;gap:6px;overflow:auto"></div>
+<label for="igCaption">게시글 문구</label><textarea id="igCaption" rows="5"></textarea>
+<p id="igError" class="bad" role="status"></p>
+<div class="row" style="flex-wrap:wrap"><button id="igPrepare" class="primary">Instagram으로 보내기</button><button id="igShare" class="primary" hidden>게시하기</button><button id="igShow" hidden>Instagram 창 보기</button><button id="igCopy">문구 복사</button><button id="igCancel" hidden>준비 취소</button></div></dialog>
+<div id="toast" role="status" hidden></div>
+<input hidden type="file" id="projectFile" accept=".cardnews,.json"><input hidden type="file" id="imageFile" accept="image/png,image/jpeg,image/webp">
+<script type="application/json" id="seed">__DECK__</script>
+<script>/*ZIP*/</script><script>/*RENDER*/</script><script>/*PUBLISH*/</script><script>/*APP*/</script></body></html>

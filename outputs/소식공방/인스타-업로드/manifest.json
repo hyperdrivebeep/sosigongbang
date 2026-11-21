@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "소식공방 · 인스타그램 게시",
+  "version": "1.0.0",
+  "description": "소식공방의 카드와 캡션을 로그인된 Instagram에 옮기고, 선택한 계정에 게시합니다.",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0alidRmfJ8jONCJ2s1M3xI6KL7Ai7hK3+7W+cLB5GWp3ibZ5rF2XFqay4n6Th9vnyFfkA5KedOQgrYPx9aDd+8yHllZxyU6nach4LPsYT/W2hFlBuP4XcVLDT7hJCEAMRV4U6YmUtIUJDLoSJj60fdd3WFetEPhJpUcMZgNviGgNUl6lw0gk4KdKBexmlgReFXEbrr/Ebm/xdcpfEW3reSM6U1MFOfIdryYrlJ6QGQAHdcEeH8O37Jrr6mef6+q7aNUHqH+Wwz1KGUGNyPPJMQot1/ISngHu5lOxPGPC2kzDTIaD7cJ2GykfFXQBsez9Ocxg4uB9HHHvBAa7Rnk19QIDAQAB",
+  "permissions": [
+    "storage"
+  ],
+  "externally_connectable": {
+    "matches": [
+      "http://127.0.0.1/*"
+    ]
+  },
+  "background": {
+    "service_worker": "worker.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.instagram.com/*"
+      ],
+      "js": [
+        "instagram.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}

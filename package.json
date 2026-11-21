@@ -1,0 +1,17 @@
+{
+  "name": "sosigongbang",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node outputs/소식공방/app/launch.mjs",
+    "build": "python -X utf8 work/build.py",
+    "test": "node work/qa/connection.mjs && node work/qa/ui.cjs && node work/qa/instagram-extension.cjs"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "devDependencies": {
+    "jszip": "3.10.1",
+    "playwright": "1.62.1"
+  }
+}
